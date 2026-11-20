@@ -1,6 +1,7 @@
 # FirstApp
 
-投稿アプリ（Rails 8.1 / Ruby 3.2）です。認証付き投稿と基本的なセキュリティ対策を含みます。
+投稿アプリ（Rails 8.1 / Ruby 3.3.14）です。認証付き投稿と基本的なセキュリティ対策を含みます。
+Ruby 3.3.14 は Ruby2Shell（CVE-2026-132825）を含む 2026-11 のセキュリティ修正入りです。
 
 ## セットアップ
 
@@ -22,7 +23,7 @@ bin/rails server
 
 ## セキュリティ関連のポイント
 
-- Ruby 3.2 / Rails 8.1 / 現行系 Puma・Rack へ更新
+- Ruby 3.3.14（Ruby2Shell 修正版）/ Rails 8.1 / 現行系 Puma・Rack へ更新
 - 投稿作成はログイン必須
 - Strong Parameters・投稿文字数制限・レート制限（Rack::Attack）
 - 本番で `force_ssl` / CSP / セキュア Cookie / `log_level=info`
