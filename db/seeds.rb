@@ -1,7 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+email = ENV.fetch("BOOTSTRAP_USER_EMAIL", "admin@example.com")
+password = ENV.fetch("BOOTSTRAP_USER_PASSWORD") do
+  raise "BOOTSTRAP_USER_PASSWORD を設定してから db:seed を実行してください。" if Rails.env.production?
+
+  "ChangeMeNow!123"
+end
+
+user = User.find_or_initialize_by(email: email)
+user.password = password
+user.save!
+
+puts "Seeded user: #{user.email}"

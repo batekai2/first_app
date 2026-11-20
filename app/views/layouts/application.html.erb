@@ -1,15 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <title>FirstApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <header class="site-header">
+      <div class="site-brand"><%= link_to "FirstApp", root_path %></div>
+      <nav class="site-nav">
+        <% if logged_in? %>
+          <span class="site-user"><%= current_user.email %></span>
+          <%= button_to "ログアウト", logout_path, method: :delete %>
+        <% else %>
+          <%= link_to "ログイン", login_path %>
+        <% end %>
+      </nav>
+    </header>
+
+    <% if notice.present? %>
+      <p class="flash notice"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="flash alert"><%= alert %></p>
+    <% end %>
+
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

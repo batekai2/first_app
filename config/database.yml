@@ -1,24 +1,19 @@
 default: &default
-  encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default
-  adapter: mysql2
-  database: first_app_development
-  username: root
-  password:
-  socket: /var/lib/mysql/mysql.sock
+  adapter: sqlite3
+  database: storage/development.sqlite3
 
 test:
   <<: *default
-  adapter: mysql2
-  database: first_app_test
-  username: root
-  password:
-  socket: /var/lib/mysql/mysql.sock
+  adapter: sqlite3
+  database: storage/test.sqlite3
 
 production:
   <<: *default
   adapter: postgresql
-  url: <%= ENV['DATABASE_URL'] %>
+  encoding: unicode
+  url: <%= ENV["DATABASE_URL"] %>
